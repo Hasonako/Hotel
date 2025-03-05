@@ -24,14 +24,43 @@ namespace Hotel.Pages
         public AuthPage()
         {
             InitializeComponent();
-            var user = DbConnect.entObj.Usr.FirstOrDefault(x => x.login == log.Text && x.passwd == passwd.Password);
-            if (user != null)
+            
+        }
+
+        private void LogIn_Click(object sender, RoutedEventArgs e)
+        {
+            try
             {
-                RoleClass.RoleName = user.Role.roleName;
-                if (RoleClass.RoleName == "Admin") this.NavigationService.Navigate(new AdminPages.AdminPage());
-                if (RoleClass.RoleName == "Manager") this.NavigationService.Navigate(new ManagerPages.ManagerPage());
+                if(log.Text == "" || passwd.Password == "")
+                {
+                    MessageBox.Show("Пожалуйста, заполните поля логина и пароля", "Проверьте правильность введенный данных", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    var user = DbConnect.entObj.Usrs.FirstOrDefault(x => x.login == log.Text && x.passwd == passwd.Password);
+                    if (user != null)
+                    {
+                        MessageBox.Show("Вы успешно авторизовались", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                        RoleClass.RoleName = user.Role.roleName;
+                        RoleClass.UsrName = user.name;
+                        RoleClass.UsrId = user.id;
+
+                        if (user.FirstLogin == true) this.NavigationService.Navigate(new ChangePasswordPage());
+                        else if (RoleClass.RoleName == "Admin") this.NavigationService.Navigate(new AdminPages.AdminPage());
+                        else if (RoleClass.RoleName == "Manager") this.NavigationService.Navigate(new ManagerPages.ManagerPage());
+                        else MessageBox.Show("Ты кто?", "Как ты сюда попал?", MessageBoxButton.OK, MessageBoxImage.Question);
+                    }
+                    else {
+                        MessageBox.Show("Вы ввели неверный логин или пароль. Пожалуйста проверьте ещё раз введенные данные", "Проверьте правильность введенный данных", MessageBoxButton.OK, MessageBoxImage.Error);
+                        wrong.Content = "Неверный логин или пароль";
+                    }
+                }
             }
-            else wrong.Content = "Неверный логин или пароль";
+            catch
+            {
+
+            }
         }
     }
 }

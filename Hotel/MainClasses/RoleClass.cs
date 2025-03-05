@@ -8,6 +8,8 @@ namespace Hotel.MainClasses
 {
     internal class RoleClass
     {
+        public static int UsrId;
+        public static string UsrName = "";
         public static string RoleName = "";
     }
 }

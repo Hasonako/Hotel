@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace Hotel.Pages.AdminPages
 {
     /// <summary>
-    /// Логика взаимодействия для AdminPage.xaml
+    /// Interaction logic for RegEmpPage.xaml
     /// </summary>
-    public partial class AdminPage : Page
+    public partial class RegEmpPage : Page
     {
-        public AdminPage()
+        public RegEmpPage()
         {
             InitializeComponent();
-        }
-
-        private void Reg_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

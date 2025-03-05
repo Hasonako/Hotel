@@ -15,7 +15,7 @@
             <Label Content="Пароль" HorizontalAlignment="Center" Margin="10"/>
             <PasswordBox Name="passwd" PasswordChar="*" Width="150" HorizontalContentAlignment="Center"/>
             <Label Name="wrong" HorizontalAlignment="Center" Margin="10"/>
-            <Button Name="LogIn" Height="20" Width="100" Margin="30" Content="Вход"/>
+            <Button Name="LogIn" Height="20" Width="100" Margin="30" Content="Вход" Click="LogIn_Click"/>
         </StackPanel>
     </Grid>
 </Page>

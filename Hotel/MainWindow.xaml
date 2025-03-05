@@ -8,6 +8,6 @@
         WindowStartupLocation="CenterScreen"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Frame Name="MnFrm"/>
+        <Frame Name="MnFrm" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>
