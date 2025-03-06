@@ -27,7 +27,7 @@ namespace Hotel.Pages.AdminPages
         public EmplPage()
         {
             InitializeComponent();
-            dgrEmployee.ItemsSource = DbConnect.entObj.Usr.ToList();
+            dgrEmployee.ItemsSource = DbConnect.entObj.Usrs.ToList();
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -40,10 +40,10 @@ namespace Hotel.Pages.AdminPages
             if(dgrEmployee.SelectedItem != null)
             {
                 var mid = TypeDescriptor.GetProperties(dgrEmployee.SelectedItem)["id"].GetValue(dgrEmployee.SelectedItem);
-                EmplObj = DbConnect.entObj.Usr.FirstOrDefault(a => a.id == (int)mid);
-                DbConnect.entObj.Usr.Remove(EmplObj);
+                EmplObj = DbConnect.entObj.Usrs.FirstOrDefault(a => a.id == (int)mid);
+                DbConnect.entObj.Usrs.Remove(EmplObj);
                 DbConnect.entObj.SaveChanges();
-                dgrEmployee.ItemsSource = DbConnect.entObj.Usr.ToList();
+                dgrEmployee.ItemsSource = DbConnect.entObj.Usrs.ToList();
             }
         }
 

@@ -28,7 +28,7 @@ namespace Hotel.Pages
         {
             InitializeComponent();
             Welcome.Content = RoleClass.UsrName;
-            var user = DbConnect.entObj.Usr.FirstOrDefault(x => x.id == RoleClass.UsrId);
+            var user = DbConnect.entObj.Usrs.FirstOrDefault(x => x.id == RoleClass.UsrId);
             TheUser = user;
         }
 

@@ -87,13 +87,25 @@
     <Compile Include="Pages\ManagerPages\ManagerPage.xaml.cs">
       <DependentUpon>ManagerPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Res\AccStatus.cs">
+    <Compile Include="Pages\ManagerPages\RoomsGuestsPage.xaml.cs">
+      <DependentUpon>RoomsGuestsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ManagerPages\RoomsPage.xaml.cs">
+      <DependentUpon>RoomsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\ManagerPages\RoomsStatusPage.xaml.cs">
+      <DependentUpon>RoomsStatusPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Res\AccStatu.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Res\Category.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Res\Clients.cs">
+    <Compile Include="Res\Client.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Res\ClientRoom.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Res\Model1.Context.cs">
@@ -114,13 +126,13 @@
     <Compile Include="Res\Role.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Res\Rooms.cs">
+    <Compile Include="Res\Room.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Res\Status.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
-    <Compile Include="Res\sysdiagrams.cs">
+    <Compile Include="Res\sysdiagram.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Res\Usr.cs">
@@ -171,6 +183,18 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Pages\ManagerPages\RoomsGuestsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ManagerPages\RoomsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ManagerPages\RoomsStatusPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Pages\AuthPage.xaml.cs">
@@ -212,7 +236,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <Content Include="Res\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

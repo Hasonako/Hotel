@@ -12,12 +12,15 @@ namespace Hotel.Res
     using System;
     using System.Collections.Generic;
     
-    public partial class sysdiagrams
+    public partial class ClientRoom
     {
-        public string name { get; set; }
-        public int principal_id { get; set; }
-        public int diagram_id { get; set; }
-        public Nullable<int> version { get; set; }
-        public byte[] definition { get; set; }
+        public int id { get; set; }
+        public int roomId { get; set; }
+        public int clientId { get; set; }
+        public Nullable<System.DateTime> dateIn { get; set; }
+        public Nullable<System.DateTime> dateOut { get; set; }
+    
+        public virtual Client Client { get; set; }
+        public virtual Room Room { get; set; }
     }
 }

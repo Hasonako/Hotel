@@ -25,13 +25,14 @@ namespace Hotel.Res
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Category> Category { get; set; }
-        public virtual DbSet<Clients> Clients { get; set; }
-        public virtual DbSet<Role> Role { get; set; }
-        public virtual DbSet<Rooms> Rooms { get; set; }
+        public virtual DbSet<AccStatu> AccStatus { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<ClientRoom> ClientRooms { get; set; }
+        public virtual DbSet<Client> Clients { get; set; }
+        public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<Room> Rooms { get; set; }
         public virtual DbSet<Status> Status { get; set; }
-        public virtual DbSet<Usr> Usr { get; set; }
-        public virtual DbSet<AccStatus> AccStatus { get; set; }
-        public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
+        public virtual DbSet<Usr> Usrs { get; set; }
     }
 }

@@ -28,20 +28,20 @@ namespace Hotel.Pages.AdminPages
         {
             InitializeComponent();
             var mid = TypeDescriptor.GetProperties(imp)["id"].GetValue(imp);
-            EditUser = DbConnect.entObj.Usr.FirstOrDefault(x => x.id == (int)mid);
+            EditUser = DbConnect.entObj.Usrs.FirstOrDefault(x => x.id == (int)mid);
 
             txbName.Text = EditUser.name;
             txbLog.Text = EditUser.login;
             //Комбо Бокс с ролью
             CmbRole.SelectedValuePath = "roleName";
             CmbRole.DisplayMemberPath = "roleName";
-            CmbRole.ItemsSource = DbConnect.entObj.Role.GroupBy(x => x.roleName).ToList();
+            CmbRole.ItemsSource = DbConnect.entObj.Roles.GroupBy(x => x.roleName).ToList();
             CmbRole.Text = EditUser.Role.roleName;
             //Комбо Бокс с блокировкой
             cmbBlock.SelectedValuePath = "blockStatus";
             cmbBlock.DisplayMemberPath = "blockStatus";
             cmbBlock.ItemsSource = DbConnect.entObj.AccStatus.GroupBy(x => x.blockStatus).ToList();
-            cmbBlock.Text = EditUser.AccStatus.blockStatus;
+            cmbBlock.Text = EditUser.AccStatu.blockStatus;
         }
 
         private void btnSave_Click(object sender, RoutedEventArgs e)
@@ -50,7 +50,7 @@ namespace Hotel.Pages.AdminPages
                 MessageBox.Show("Заполните поля!", "Пустые поля", MessageBoxButton.OK, MessageBoxImage.Warning);
             else
             {
-                var RoleName = DbConnect.entObj.Role.FirstOrDefault(x => x.roleName == CmbRole.Text);
+                var RoleName = DbConnect.entObj.Roles.FirstOrDefault(x => x.roleName == CmbRole.Text);
                 var RoleId = TypeDescriptor.GetProperties(RoleName)["id"].GetValue(RoleName);
 
                 var BlockStatusName = DbConnect.entObj.AccStatus.FirstOrDefault(x => x.blockStatus == cmbBlock.Text);

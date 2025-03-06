@@ -37,7 +37,7 @@ namespace Hotel.Pages
                 }
                 else
                 {
-                    var user = DbConnect.entObj.Usr.FirstOrDefault(x => x.login == log.Text && x.passwd == passwd.Password);
+                    var user = DbConnect.entObj.Usrs.FirstOrDefault(x => x.login == log.Text && x.passwd == passwd.Password);
                     if (user != null)
                     {
                         MessageBox.Show("Вы успешно авторизовались", "Успех", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -53,7 +53,7 @@ namespace Hotel.Pages
                             MessageBox.Show("Ваша учетная запись заблокирована из-за старости","Вы заблокированы",MessageBoxButton.OK, MessageBoxImage.Warning);
                         }
 
-                        if (user.AccStatus.blockStatus == "Заблокирован") this.NavigationService.Navigate(new BlockedAccPage());
+                        if (user.AccStatu.blockStatus == "Заблокирован") this.NavigationService.Navigate(new BlockedAccPage());
                         else if (user.FirstLogin) this.NavigationService.Navigate(new ChangePasswordPage());
                         else if (RoleClass.RoleName == "Admin") this.NavigationService.Navigate(new AdminPages.AdminPage());
                         else if (RoleClass.RoleName == "Manager") this.NavigationService.Navigate(new ManagerPages.ManagerPage());

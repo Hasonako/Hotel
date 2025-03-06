@@ -17,13 +17,13 @@ namespace Hotel.Res
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Role()
         {
-            this.Usr = new HashSet<Usr>();
+            this.Usrs = new HashSet<Usr>();
         }
     
         public int id { get; set; }
         public string roleName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Usr> Usr { get; set; }
+        public virtual ICollection<Usr> Usrs { get; set; }
     }
 }

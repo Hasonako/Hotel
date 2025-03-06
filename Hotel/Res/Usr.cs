@@ -20,10 +20,10 @@ namespace Hotel.Res
         public int roleId { get; set; }
         public System.DateTime lastLogDate { get; set; }
         public string name { get; set; }
-        public bool FirstLogin { get; set; }
         public Nullable<int> blockStatusId { get; set; }
+        public bool FirstLogin { get; set; }
     
+        public virtual AccStatu AccStatu { get; set; }
         public virtual Role Role { get; set; }
-        public virtual AccStatus AccStatus { get; set; }
     }
 }

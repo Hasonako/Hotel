@@ -28,14 +28,14 @@ namespace Hotel.Pages.AdminPages
             InitializeComponent();
             CmbRole.SelectedValuePath = "Role.roleName";
             CmbRole.DisplayMemberPath = "Role.roleName";
-            CmbRole.ItemsSource = DbConnect.entObj.Usr.GroupBy(x => x.Role.roleName).ToList();
+            CmbRole.ItemsSource = DbConnect.entObj.Usrs.GroupBy(x => x.Role.roleName).ToList();
         }
 
         private void Reg_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if(DbConnect.entObj.Usr.FirstOrDefault(x=>x.login == txbLog.Text) != null)
+                if(DbConnect.entObj.Usrs.FirstOrDefault(x=>x.login == txbLog.Text) != null)
                 {
                     MessageBox.Show("Пользователь с данным логином уже существует.","Пользователь уже существует", MessageBoxButton.OK,MessageBoxImage.Warning);
                 }
@@ -46,7 +46,7 @@ namespace Hotel.Pages.AdminPages
                         MessageBox.Show("Заполните данные", "Пустые поля", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                     else {
-                        var RoleName = DbConnect.entObj.Role.FirstOrDefault(x => x.roleName == CmbRole.Text);
+                        var RoleName = DbConnect.entObj.Roles.FirstOrDefault(x => x.roleName == CmbRole.Text);
                         var RoleId = TypeDescriptor.GetProperties(RoleName)["id"].GetValue(RoleName);
 
                         Usr NewUser = new Usr();
@@ -59,7 +59,7 @@ namespace Hotel.Pages.AdminPages
                             NewUser.blockStatusId = 2;
                             NewUser.FirstLogin = true;
                         }
-                        DbConnect.entObj.Usr.Add(NewUser);
+                        DbConnect.entObj.Usrs.Add(NewUser);
                         DbConnect.entObj.SaveChanges();
                         MessageBox.Show("Пользователь " + NewUser.name + " добавлен.", "Успешно", MessageBoxButton.OK, MessageBoxImage.Information);
                         this.NavigationService.Navigate(new EmplPage());

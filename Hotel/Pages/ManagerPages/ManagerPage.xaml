@@ -9,6 +9,25 @@
       Title="ManagerPage">
 
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Menu>
+            <MenuItem Header="Выйти" Name="LogOut" Click="LogOut_Click" Height="25"/>
+        </Menu>
+
+        <TabControl Grid.Row="1">
+            <TabItem Header="Номера">
+                <Frame Name="Rooms"/>
+            </TabItem>
+            <TabItem Header="Отчет по номерам">
+                <Frame Name="RoomsStatus"/>
+            </TabItem>
+            <TabItem Header="Гости">
+                <Frame Name="RoomsGuests"/>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Page>

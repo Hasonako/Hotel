@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Hotel.MainClasses;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,16 @@ namespace Hotel.Pages.ManagerPages
         public ManagerPage()
         {
             InitializeComponent();
+            if (RoleClass.RoleName == "Admin") LogOut.Visibility = Visibility.Hidden;
+            Rooms.Navigate(new RoomsPage());
+            RoomsStatus.Navigate(new RoomsStatusPage());
+            RoomsGuests.Navigate(new RoomsGuestsPage());
+        }
+
+        private void LogOut_Click(object sender, RoutedEventArgs e)
+        {
+            RoleClass.RoleName = "";
+            this.NavigationService.Navigate(new AuthPage());
         }
     }
 }

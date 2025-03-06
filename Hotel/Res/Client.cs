@@ -14,7 +14,16 @@ namespace Hotel.Res
     
     public partial class Client
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Client()
+        {
+            this.ClientRooms = new HashSet<ClientRoom>();
+        }
+    
         public int id { get; set; }
         public string name { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ClientRoom> ClientRooms { get; set; }
     }
 }
