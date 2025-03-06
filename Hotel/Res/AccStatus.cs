@@ -12,16 +12,16 @@ namespace Hotel.Res
     using System;
     using System.Collections.Generic;
     
-    public partial class Role
+    public partial class AccStatus
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Role()
+        public AccStatus()
         {
             this.Usr = new HashSet<Usr>();
         }
     
         public int id { get; set; }
-        public string roleName { get; set; }
+        public string blockStatus { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Usr> Usr { get; set; }

@@ -13,21 +13,21 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Hotel.Pages.AdminPages
+namespace Hotel.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для AdminPage.xaml
+    /// Логика взаимодействия для BlockedAccPage.xaml
     /// </summary>
-    public partial class AdminPage : Page
+    public partial class BlockedAccPage : Page
     {
-        public AdminPage()
+        public BlockedAccPage()
         {
             InitializeComponent();
         }
 
-        private void Empl_Click(object sender, RoutedEventArgs e)
+        private void Exit_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new EmplPage());
+
         }
     }
 }

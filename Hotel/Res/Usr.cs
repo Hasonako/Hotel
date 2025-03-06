@@ -21,7 +21,9 @@ namespace Hotel.Res
         public System.DateTime lastLogDate { get; set; }
         public string name { get; set; }
         public bool FirstLogin { get; set; }
+        public Nullable<int> blockStatusId { get; set; }
     
         public virtual Role Role { get; set; }
+        public virtual AccStatus AccStatus { get; set; }
     }
 }

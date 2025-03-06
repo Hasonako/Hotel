@@ -15,7 +15,8 @@
         </Grid.RowDefinitions>
 
         <Menu Grid.Row="0">
-            <MenuItem Name="Reg" Header="Регистрация сотрудника" Click="Reg_Click"/>
+            <MenuItem Name="Empl" Header="Сотрудники" Click="Empl_Click" Height="25"/>
+            <MenuItem Name="LogOut" Header="Выход" Click="Empl_Click" Height="25"/>
         </Menu>
         
     </Grid>

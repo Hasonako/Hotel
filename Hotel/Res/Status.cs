@@ -17,13 +17,13 @@ namespace Hotel.Res
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Status()
         {
-            this.Rooms = new HashSet<Room>();
+            this.Rooms = new HashSet<Rooms>();
         }
     
         public int id { get; set; }
         public string statusName { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Room> Rooms { get; set; }
+        public virtual ICollection<Rooms> Rooms { get; set; }
     }
 }

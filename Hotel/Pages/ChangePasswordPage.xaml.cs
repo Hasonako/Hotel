@@ -23,17 +23,25 @@ namespace Hotel.Pages
     public partial class ChangePasswordPage : Page
     {
         Usr TheUser;
+        private static int counter = 0;
         public ChangePasswordPage()
         {
             InitializeComponent();
             Welcome.Content = RoleClass.UsrName;
-            var user = DbConnect.entObj.Usrs.FirstOrDefault(x => x.id == RoleClass.UsrId);
+            var user = DbConnect.entObj.Usr.FirstOrDefault(x => x.id == RoleClass.UsrId);
             TheUser = user;
         }
 
         private void Change_Click(object sender, RoutedEventArgs e)
         {
-            if (NewPasswd.Password == "" || NewPasswdAgain.Password == "")
+            if (counter >= 3)
+            {
+                TheUser.blockStatusId = 1;
+                DbConnect.entObj.SaveChanges();
+                MessageBox.Show("Вы заблокированы. Обратитесь к администратору", "Вы заблокированы", MessageBoxButton.OK, MessageBoxImage.Warning);
+                this.NavigationService.Navigate(new BlockedAccPage());
+            }
+            else if (NewPasswd.Password == "" || NewPasswdAgain.Password == "")
             {
                 MessageBox.Show("Введите данные", "Пустые поля", MessageBoxButton.OK, MessageBoxImage.Error);
             }
@@ -56,9 +64,17 @@ namespace Hotel.Pages
 
                     }
                 }
-                else MessageBox.Show("Введен неверный пароль", "Неверные данные", MessageBoxButton.OK, MessageBoxImage.Error);
+                else 
+                {
+                    counter++;
+                    MessageBox.Show("Введен неверный пароль", "Неверные данные", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
-            else MessageBox.Show("Введенные пароль не совпадают", "Неверные данные", MessageBoxButton.OK, MessageBoxImage.Warning);
+            else
+            {
+                counter++;
+                MessageBox.Show("Введенные пароль не совпадают", "Неверные данные", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
         }
     }
 }

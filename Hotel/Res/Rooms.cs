@@ -12,18 +12,15 @@ namespace Hotel.Res
     using System;
     using System.Collections.Generic;
     
-    public partial class Role
+    public partial class Rooms
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Role()
-        {
-            this.Usr = new HashSet<Usr>();
-        }
-    
         public int id { get; set; }
-        public string roleName { get; set; }
+        public int floorNumber { get; set; }
+        public int roomNumber { get; set; }
+        public int categoryId { get; set; }
+        public Nullable<int> statusId { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Usr> Usr { get; set; }
+        public virtual Category Category { get; set; }
+        public virtual Status Status { get; set; }
     }
 }

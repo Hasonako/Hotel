@@ -4,7 +4,14 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="HotelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Хранилище HotelModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AccStatus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="blockStatus" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="id" />
@@ -71,6 +78,7 @@ warning 6013: The table/view 'Hotel.dbo.ClientRoom' does not have a primary key 
           <Property Name="roleId" Type="int" Nullable="false" />
           <Property Name="lastLogDate" Type="datetime" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="blockStatusId" Type="int" />
           <Property Name="FirstLogin" Type="bit" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
@@ -103,6 +111,18 @@ error 6004: The table 'Hotel.dbo.ClientRoom' is referenced by a relationship, bu
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Usr_AccStatus">
+          <End Role="AccStatus" Type="Self.AccStatus" Multiplicity="0..1" />
+          <End Role="Usr" Type="Self.Usr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccStatus">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Usr">
+              <PropertyRef Name="blockStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Usr_Role">
           <End Role="Role" Type="Self.Role" Multiplicity="1" />
           <End Role="Usr" Type="Self.Usr" Multiplicity="*" />
@@ -115,7 +135,8 @@ error 6004: The table 'Hotel.dbo.ClientRoom' is referenced by a relationship, bu
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="HotelModelStoreContainer">
+        <EntityContainer Name="Хранилище HotelModelContainer">
+          <EntitySet Name="AccStatus" EntityType="Self.AccStatus" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
@@ -130,6 +151,10 @@ error 6004: The table 'Hotel.dbo.ClientRoom' is referenced by a relationship, bu
           <AssociationSet Name="FK_Rooms_Status" Association="Self.FK_Rooms_Status">
             <End Role="Status" EntitySet="Status" />
             <End Role="Rooms" EntitySet="Rooms" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Usr_AccStatus" Association="Self.FK_Usr_AccStatus">
+            <End Role="AccStatus" EntitySet="AccStatus" />
+            <End Role="Usr" EntitySet="Usr" />
           </AssociationSet>
           <AssociationSet Name="FK_Usr_Role" Association="Self.FK_Usr_Role">
             <End Role="Role" EntitySet="Role" />
@@ -148,7 +173,7 @@ error 6004: The table 'Hotel.dbo.ClientRoom' is referenced by a relationship, bu
           <Property Name="categoryName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Rooms" Relationship="Self.FK_Rooms_Category" FromRole="Category" ToRole="Rooms" />
         </EntityType>
-        <EntityType Name="Client">
+        <EntityType Name="Clients">
           <Key>
             <PropertyRef Name="id" />
           </Key>
@@ -161,9 +186,9 @@ error 6004: The table 'Hotel.dbo.ClientRoom' is referenced by a relationship, bu
           </Key>
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="roleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Usrs" Relationship="Self.FK_Usr_Role" FromRole="Role" ToRole="Usr" />
+          <NavigationProperty Name="Usr" Relationship="Self.FK_Usr_Role" FromRole="Role" ToRole="Usr" />
         </EntityType>
-        <EntityType Name="Room">
+        <EntityType Name="Rooms">
           <Key>
             <PropertyRef Name="id" />
           </Key>
@@ -183,16 +208,6 @@ error 6004: The table 'Hotel.dbo.ClientRoom' is referenced by a relationship, bu
           <Property Name="statusName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Rooms" Relationship="Self.FK_Rooms_Status" FromRole="Status" ToRole="Rooms" />
         </EntityType>
-        <EntityType Name="sysdiagram">
-          <Key>
-            <PropertyRef Name="diagram_id" />
-          </Key>
-          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="principal_id" Type="Int32" Nullable="false" />
-          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="version" Type="Int32" />
-          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-        </EntityType>
         <EntityType Name="Usr">
           <Key>
             <PropertyRef Name="id" />
@@ -202,13 +217,15 @@ error 6004: The table 'Hotel.dbo.ClientRoom' is referenced by a relationship, bu
           <Property Name="passwd" Type="String" MaxLength="25" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="roleId" Type="Int32" Nullable="false" />
           <Property Name="lastLogDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Role" Relationship="Self.FK_Usr_Role" FromRole="Usr" ToRole="Role" />
-          <Property Name="name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="FirstLogin" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="Self.FK_Usr_Role" FromRole="Usr" ToRole="Role" />
+          <Property Name="blockStatusId" Type="Int32" />
+          <NavigationProperty Name="AccStatus" Relationship="HotelModel.FK_Usr_AccStatus" FromRole="Usr" ToRole="AccStatus" />
         </EntityType>
         <Association Name="FK_Rooms_Category">
           <End Role="Category" Type="Self.Category" Multiplicity="1" />
-          <End Role="Rooms" Type="Self.Room" Multiplicity="*" />
+          <End Role="Rooms" Type="Self.Rooms" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Category">
               <PropertyRef Name="id" />
@@ -232,7 +249,7 @@ error 6004: The table 'Hotel.dbo.ClientRoom' is referenced by a relationship, bu
         </Association>
         <Association Name="FK_Rooms_Status">
           <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
-          <End Role="Rooms" Type="Self.Room" Multiplicity="*" />
+          <End Role="Rooms" Type="Self.Rooms" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Status">
               <PropertyRef Name="id" />
@@ -243,33 +260,68 @@ error 6004: The table 'Hotel.dbo.ClientRoom' is referenced by a relationship, bu
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="HotelEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Categories" EntityType="Self.Category" />
-          <EntitySet Name="Clients" EntityType="Self.Client" />
-          <EntitySet Name="Roles" EntityType="Self.Role" />
-          <EntitySet Name="Rooms" EntityType="Self.Room" />
+          <EntitySet Name="Category" EntityType="Self.Category" />
+          <EntitySet Name="Clients" EntityType="Self.Clients" />
+          <EntitySet Name="Role" EntityType="Self.Role" />
+          <EntitySet Name="Rooms" EntityType="Self.Rooms" />
           <EntitySet Name="Status" EntityType="Self.Status" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-          <EntitySet Name="Usrs" EntityType="Self.Usr" />
+          <EntitySet Name="Usr" EntityType="Self.Usr" />
           <AssociationSet Name="FK_Rooms_Category" Association="Self.FK_Rooms_Category">
-            <End Role="Category" EntitySet="Categories" />
+            <End Role="Category" EntitySet="Category" />
             <End Role="Rooms" EntitySet="Rooms" />
           </AssociationSet>
           <AssociationSet Name="FK_Usr_Role" Association="Self.FK_Usr_Role">
-            <End Role="Role" EntitySet="Roles" />
-            <End Role="Usr" EntitySet="Usrs" />
+            <End Role="Role" EntitySet="Role" />
+            <End Role="Usr" EntitySet="Usr" />
           </AssociationSet>
           <AssociationSet Name="FK_Rooms_Status" Association="Self.FK_Rooms_Status">
             <End Role="Status" EntitySet="Status" />
             <End Role="Rooms" EntitySet="Rooms" />
           </AssociationSet>
+          <EntitySet Name="AccStatus" EntityType="HotelModel.AccStatus" />
+          <EntitySet Name="sysdiagrams" EntityType="HotelModel.sysdiagrams" />
+          <AssociationSet Name="FK_Usr_AccStatus" Association="HotelModel.FK_Usr_AccStatus">
+            <End Role="AccStatus" EntitySet="AccStatus" />
+            <End Role="Usr" EntitySet="Usr" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="AccStatus">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="blockStatus" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Usr" Relationship="HotelModel.FK_Usr_AccStatus" FromRole="AccStatus" ToRole="Usr" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <Association Name="FK_Usr_AccStatus">
+          <End Type="HotelModel.AccStatus" Role="AccStatus" Multiplicity="0..1" />
+          <End Type="HotelModel.Usr" Role="Usr" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AccStatus">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Usr">
+              <PropertyRef Name="blockStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="HotelModelStoreContainer" CdmEntityContainer="HotelEntities">
-          <EntitySetMapping Name="Categories">
+        <EntityContainerMapping StorageEntityContainer="Хранилище HotelModelContainer" CdmEntityContainer="HotelEntities">
+          <EntitySetMapping Name="Category">
             <EntityTypeMapping TypeName="HotelModel.Category">
               <MappingFragment StoreEntitySet="Category">
                 <ScalarProperty Name="id" ColumnName="id" />
@@ -278,14 +330,14 @@ error 6004: The table 'Hotel.dbo.ClientRoom' is referenced by a relationship, bu
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Clients">
-            <EntityTypeMapping TypeName="HotelModel.Client">
+            <EntityTypeMapping TypeName="HotelModel.Clients">
               <MappingFragment StoreEntitySet="Clients">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Roles">
+          <EntitySetMapping Name="Role">
             <EntityTypeMapping TypeName="HotelModel.Role">
               <MappingFragment StoreEntitySet="Role">
                 <ScalarProperty Name="id" ColumnName="id" />
@@ -294,7 +346,7 @@ error 6004: The table 'Hotel.dbo.ClientRoom' is referenced by a relationship, bu
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Rooms">
-            <EntityTypeMapping TypeName="HotelModel.Room">
+            <EntityTypeMapping TypeName="HotelModel.Rooms">
               <MappingFragment StoreEntitySet="Rooms">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="floorNumber" ColumnName="floorNumber" />
@@ -312,27 +364,36 @@ error 6004: The table 'Hotel.dbo.ClientRoom' is referenced by a relationship, bu
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="HotelModel.sysdiagram">
-              <MappingFragment StoreEntitySet="sysdiagrams">
-                <ScalarProperty Name="name" ColumnName="name" />
-                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
-                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
-                <ScalarProperty Name="version" ColumnName="version" />
-                <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Usrs">
+          <EntitySetMapping Name="Usr">
             <EntityTypeMapping TypeName="HotelModel.Usr">
               <MappingFragment StoreEntitySet="Usr">
-                <ScalarProperty Name="FirstLogin" ColumnName="FirstLogin" />
-                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="blockStatusId" ColumnName="blockStatusId" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="login" ColumnName="login" />
                 <ScalarProperty Name="passwd" ColumnName="passwd" />
                 <ScalarProperty Name="roleId" ColumnName="roleId" />
                 <ScalarProperty Name="lastLogDate" ColumnName="lastLogDate" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="FirstLogin" ColumnName="FirstLogin" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AccStatus">
+            <EntityTypeMapping TypeName="HotelModel.AccStatus">
+              <MappingFragment StoreEntitySet="AccStatus">
+                <ScalarProperty Name="blockStatus" ColumnName="blockStatus" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="HotelModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -350,10 +411,10 @@ error 6004: The table 'Hotel.dbo.ClientRoom' is referenced by a relationship, bu
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

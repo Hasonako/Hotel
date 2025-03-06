@@ -1,4 +1,4 @@
-﻿<Page x:Class="Hotel.Pages.AdminPages.RegEmpPage"
+﻿<Page x:Class="Hotel.Pages.AdminPages.EditEmployeePage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Hotel.Pages.AdminPages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="RegEmpPage">
+      Title="EditEmployeePage">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -16,15 +16,18 @@
         <Menu Grid.Row="0">
             <MenuItem Header="Назад" Name="Back" Click="Back_Click" Height="25"/>
         </Menu>
-        <StackPanel HorizontalAlignment="Center" Width="250" Height="300" Grid.Row="1">
+        <StackPanel HorizontalAlignment="Center" Width="250" Height="350" Grid.Row="1">
             <Label HorizontalAlignment="Center" Margin="5" Content="Имя"/>
-            <TextBox Name="txbName" Margin="5"/>
+            <TextBox Name="txbName" Width="150"/>
             <Label HorizontalAlignment="Center" Margin="5" Content="Логин"/>
-            <TextBox Name="txbLog" Margin="5"/>
+            <TextBox Name="txbLog" Width="150"/>
             <Label HorizontalAlignment="Center" Margin="5" Content="Пароль"/>
-            <PasswordBox Name="pswdbxPasswd" Margin="5"/>
-            <ComboBox Name="CmbRole" Width="150" Margin="5" />
-            <Button Name="Reg" Content="Зарегистрировать" Width="150" Height="25" Margin="20" Click="Reg_Click"/>
+            <PasswordBox Name="pswdbxPasswd" Width="150"/>
+            <Label Content="Роль" HorizontalAlignment="Center"/>
+            <ComboBox Name="CmbRole" Width="150"/>
+            <Label Content="Статус блокировки" HorizontalAlignment="Center"/>
+            <ComboBox Name="cmbBlock" Width="150"/>
+            <Button Name="btnSave" Content="Сохранить" Width="150" Height="25" Margin="20" Click="btnSave_Click"/>
         </StackPanel>
     </Grid>
 </Page>
