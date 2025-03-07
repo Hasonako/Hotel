@@ -87,6 +87,9 @@
     <Compile Include="Pages\ManagerPages\ManagerPage.xaml.cs">
       <DependentUpon>ManagerPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ManagerPages\RoomRegistrationPage.xaml.cs">
+      <DependentUpon>RoomRegistrationPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\ManagerPages\RoomsGuestsPage.xaml.cs">
       <DependentUpon>RoomsGuestsPage.xaml</DependentUpon>
     </Compile>
@@ -180,6 +183,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\ManagerPages\ManagerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ManagerPages\RoomRegistrationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

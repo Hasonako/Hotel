@@ -20,7 +20,7 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1">
-            <DataGrid Name="dgrRoomsStatus" IsReadOnly="True" AutoGenerateColumns="False">
+            <DataGrid Name="dgrRoomsStatus" IsReadOnly="True" AutoGenerateColumns="False" MouseDoubleClick="dgrRoomsStatus_MouseDoubleClick">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Номер комнаты" Binding="{Binding roomNumber}" Width="150"/>
                     <DataGridTextColumn Header="Категория" Binding="{Binding Category.categoryName}" Width="300"/>

@@ -43,5 +43,14 @@ namespace Hotel.Pages.ManagerPages
         {
             ApplyFilter();
         }
+
+        private void dgrRoomsStatus_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (dgrRoomsStatus.SelectedItem != null)
+            {
+                var NewRoom = dgrRoomsStatus.SelectedItem;
+                this.NavigationService.Navigate(new RoomRegistrationPage(NewRoom));
+            }
+        }
     }
 }

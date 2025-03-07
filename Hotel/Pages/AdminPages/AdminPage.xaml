@@ -18,6 +18,6 @@
             <MenuItem Name="Empl" Header="Сотрудники" Click="Empl_Click" Height="25"/>
             <MenuItem Name="LogOut" Header="Выход" Click="Empl_Click" Height="25"/>
         </Menu>
-        
+        <Frame Name="AdminManager" Grid.Row="1"/>
     </Grid>
 </Page>

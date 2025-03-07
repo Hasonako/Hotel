@@ -23,6 +23,7 @@ namespace Hotel.Pages.AdminPages
         public AdminPage()
         {
             InitializeComponent();
+            AdminManager.Navigate(new ManagerPages.ManagerPage());
         }
 
         private void Empl_Click(object sender, RoutedEventArgs e)

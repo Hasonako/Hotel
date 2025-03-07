@@ -35,5 +35,10 @@ namespace Hotel.Pages.ManagerPages
             RoleClass.RoleName = "";
             this.NavigationService.Navigate(new AuthPage());
         }
+
+        private void RegGuest_Click(object sender, RoutedEventArgs e)
+        {
+            //if(dgr)
+        }
     }
 }
